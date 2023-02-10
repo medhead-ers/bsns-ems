@@ -3,12 +3,11 @@ package com.medhead.ers.bsns_ems.domain.entity;
 import com.medhead.ers.bsns_ems.domain.valueObject.GPSCoordinates;
 import com.medhead.ers.bsns_ems.domain.valueObject.MedicalSpeciality;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
