@@ -11,8 +11,8 @@
 
 	<!-- PROPERTIES  -->
 	<properties>
-		<!--À configurer pour chaque micro-services -->
-		<service.version>1.0.0</service.version>
+		<!--À configurer pour chaque micro-service -->
+		<revision>1.0.0</revision>
 		<service.artifactid>bsns_ems</service.artifactid>
 		<service.github.package.url>https://maven.pkg.github.com/medhead-ers/bsns-ems</service.github.package.url>
 
@@ -25,7 +25,7 @@
 	<!-- PROJECT DESCRIPTION-->
 	<groupId>com.medhead.ers</groupId>
 	<artifactId>${service.artifactid}</artifactId>
-	<version>${service.version}}</version>
+	<version>${revision}</version>
 	<name>${service.artifactid}</name>
 
 	<!-- PACKAGE DEPLOYMENT -->
@@ -72,6 +72,10 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20220924</version>
@@ -81,6 +85,11 @@
 			<artifactId>testcontainers</artifactId>
 			<version>1.17.6</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
 		</dependency>
 	</dependencies>
 
@@ -115,6 +124,9 @@
 						<configuration>
 							<excludes>
 								<exclude>com/medhead/ers/*/*Application.class</exclude>
+								<!-- Exclude messaging when not used in app to avoid wrong metrics -->
+								<exclude>com/medhead/ers/*/application/messaging/**</exclude>
+								<exclude>com/medhead/ers/*/application/advice/MessagePublicationFailAdvice.*</exclude>
 							</excludes>
 						</configuration>
 						<executions>
