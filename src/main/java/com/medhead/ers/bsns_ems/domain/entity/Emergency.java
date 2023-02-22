@@ -1,5 +1,6 @@
 package com.medhead.ers.bsns_ems.domain.entity;
 
+import com.medhead.ers.bsns_ems.domain.valueObject.EmergencyStatus;
 import com.medhead.ers.bsns_ems.domain.valueObject.GPSCoordinates;
 import com.medhead.ers.bsns_ems.domain.valueObject.MedicalSpeciality;
 import jakarta.persistence.*;
@@ -36,4 +37,9 @@ public class Emergency {
     @NotNull
     @Enumerated(EnumType.STRING)
     private MedicalSpeciality medicalSpeciality;
+
+    @NotNull
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private EmergencyStatus status = EmergencyStatus.PENDING;
 }
