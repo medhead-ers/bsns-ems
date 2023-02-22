@@ -60,7 +60,8 @@ class EmergencyControllerTest {
                 .andExpect(jsonPath("$.patientId", is(emergency.getPatientId())))
                 .andExpect(jsonPath("$.medicalSpeciality", is(String.valueOf(emergency.getMedicalSpeciality()))))
                 .andExpect(jsonPath("$.gpsCoordinates.longitude").value(is(emergency.getGpsCoordinates().getLongitude()), Double.class))
-                .andExpect(jsonPath("$.gpsCoordinates.latitude").value(is(emergency.getGpsCoordinates().getLatitude()), Double.class));
+                .andExpect(jsonPath("$.gpsCoordinates.latitude").value(is(emergency.getGpsCoordinates().getLatitude()), Double.class))
+                .andExpect(jsonPath("$.status", is(String.valueOf(emergency.getStatus()))));
     }
     @Test
     void test_failGetOneEmergency () throws Exception {
