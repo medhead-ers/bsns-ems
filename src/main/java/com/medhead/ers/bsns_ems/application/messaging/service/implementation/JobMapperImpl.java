@@ -9,11 +9,22 @@ import org.springframework.stereotype.Service;
 public class JobMapperImpl implements JobMapper {
     @Override
     public Job createJobFromEvent(Event event) throws Exception {
-        Class<?> jobClass = Class.forName(Job.class.getPackageName() + "." + getJobNameFromEvent(event));
-        return (Job) jobClass.getDeclaredConstructor(Event.class).newInstance(event);
+            Class<?> jobClass = Class.forName(Job.class.getPackageName() + "." + getJobNameFromEvent(event));
+            return (Job) jobClass.getDeclaredConstructor(Event.class).newInstance(event);
     }
 
     private String getJobNameFromEvent(Event event){
         return  event.getEventType() + "Job";
+    }
+
+    public boolean checkIfJobExistForEvent(Event event){
+        try {
+            Class.forName(Job.class.getPackageName() + "." + getJobNameFromEvent(event));
+            return true;
+        }
+        catch (ClassNotFoundException e){
+            return false;
+        }
+
     }
 }
