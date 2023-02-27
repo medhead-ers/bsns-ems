@@ -1,11 +1,11 @@
 package com.medhead.ers.bsns_ems.application.messaging.job;
 
 import com.medhead.ers.bsns_ems.application.messaging.event.Event;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public abstract class Job {
     protected Event event;
 

@@ -24,20 +24,26 @@ public class MessageListener {
         this.messageToEventConverter = messageToEventConverter;
     }
 
-    public void receiveMessage(String message) throws CannotCreateEventFromJSONMessageException, CannotProcessJobException {
-        Event event = createEventFromMessage(message);
+    public void receiveMessage(String message) throws CannotProcessJobException {
+        Event event = null;
+        try {
+            event = createEventFromMessage(message);
+        } catch (CannotCreateEventFromJSONMessageException e) {
+            logger.info("Message reçu de type inconnu ou malformé (pas d'événement éligible associé). Le message sera ignoré.");
+            return;
+        }
         logger.info("Message reçu de type : " + event.getEventType().toString() );
         if(jobMapper.checkIfJobExistForEvent(event)) {
             try {
                 Job job = jobMapper.createJobFromEvent(event);
-                logger.info("Traitement de l'événement de type : " + event.getEventType().toString() +". Job processor : "+ job.getClass().toString());
+                logger.info("Traitement de l'événement de type : " + event.getEventType().toString() +". Job processor : "+ job.getClass().getSimpleName());
                 job.process();
             } catch (Exception exception) {
                 throw new CannotProcessJobException(exception);
             }
         }
         else {
-            logger.info("Aucun job processor trouvé pour l'événement de type : " + event.getEventType().toString() );
+            logger.info("Aucun job processor trouvé pour l'événement de type : " + event.getEventType().toString() + " - Message ignoré." );
         }
     }
 
