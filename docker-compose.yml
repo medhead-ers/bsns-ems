@@ -17,7 +17,7 @@ services:
       - "traefik.http.routers.bsns_ems.rule=Host(`medhead.localhost`) && PathPrefix(`/ems`)"
       - "traefik.http.routers.bsns_ems.middlewares=ems-stripprefix"
       - "traefik.http.middlewares.ems-stripprefix.stripprefix.prefixes=/ems"
-      - "traefik.http.services.bsns_ems.loadbalancer.server.port=8080"
+      - "traefik.http.services.bsns_ems.loadbalancer.server.port=9030"
 
   # Redis dependency
   redis:
