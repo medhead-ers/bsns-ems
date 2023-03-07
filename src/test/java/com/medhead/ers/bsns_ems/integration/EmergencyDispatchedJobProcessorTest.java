@@ -1,7 +1,8 @@
 package com.medhead.ers.bsns_ems.integration;
 
-import com.medhead.ers.bsns_ems.application.data.repository.EmergencyRepository;
 import com.medhead.ers.bsns_ems.application.messaging.redis.config.MessageListener;
+import com.medhead.ers.bsns_ems.application.messaging.service.implementation.JobMapperImpl;
+import com.medhead.ers.bsns_ems.application.messaging.service.implementation.RedisMessageToEventConverter;
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import com.medhead.ers.bsns_ems.domain.service.definition.EmergencyService;
 import com.medhead.ers.bsns_ems.domain.valueObject.EmergencyStatus;
@@ -29,7 +30,7 @@ public class EmergencyDispatchedJobProcessorTest {
     private final static String MOCK_MESSAGE_RESOURCES_PATH = "src/test/resources/mock/message/";
 
     @Autowired
-    private MessageListener messageListener;
+    private final MessageListener messageListener = new MessageListener(new JobMapperImpl(), new RedisMessageToEventConverter());
     @Autowired
     private EmergencyService emergencyService;
 
