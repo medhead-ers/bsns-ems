@@ -30,7 +30,7 @@ public class EmergencyDispatchedJobProcessorTest {
     private final static String MOCK_MESSAGE_RESOURCES_PATH = "src/test/resources/mock/message/";
 
     @Autowired
-    private final MessageListener messageListener = new MessageListener(new JobMapperImpl(), new RedisMessageToEventConverter());
+    private MessageListener messageListener;
     @Autowired
     private EmergencyService emergencyService;
 
