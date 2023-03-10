@@ -42,4 +42,8 @@ public class Emergency {
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private EmergencyStatus status = EmergencyStatus.PENDING;
+
+    public void setAsDispatched() {
+        this.setStatus(EmergencyStatus.DISPATCHED);
+    }
 }

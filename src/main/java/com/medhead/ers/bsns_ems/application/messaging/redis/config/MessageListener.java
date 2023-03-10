@@ -1,5 +1,6 @@
 package com.medhead.ers.bsns_ems.application.messaging.redis.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.medhead.ers.bsns_ems.application.messaging.event.Event;
 import com.medhead.ers.bsns_ems.application.messaging.exception.CannotCreateEventFromJSONMessageException;
 import com.medhead.ers.bsns_ems.application.messaging.exception.CannotProcessJobException;
@@ -10,8 +11,13 @@ import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 @NoArgsConstructor
+@Component
 public class MessageListener {
     @Autowired
     private JobMapper jobMapper;
@@ -29,21 +35,34 @@ public class MessageListener {
         try {
             event = createEventFromMessage(message);
         } catch (CannotCreateEventFromJSONMessageException e) {
-            logger.info("Message reçu de type inconnu ou malformé (pas d'événement éligible associé). Le message sera ignoré.");
-            return;
+            try {
+                HashMap<String, Object> receivedMessage = (HashMap<String, Object>) new ObjectMapper().readValue(message, Object.class);
+                String eventType = (String) receivedMessage.get("eventType");
+                if (eventType.isEmpty()) {
+                    throw new IOException();
+                }
+                logger.info("Message reçu de type inconnu ("+eventType+") - Pas d'événement éligible associé. Le message sera ignoré.");
+                return;
+            } catch (Exception ex) {
+                logger.info("Message malformé reçu. Le message sera ignoré.");
+                return;
+            }
         }
-        logger.info("Message reçu de type : " + event.getEventType().toString() );
+
+        logger.info("Message reçu de type : " + event.getEventType().toString());
+
         if(jobMapper.checkIfJobExistForEvent(event)) {
             try {
                 Job job = jobMapper.createJobFromEvent(event);
                 logger.info("Traitement de l'événement de type : " + event.getEventType().toString() +". Job processor : "+ job.getClass().getSimpleName());
                 job.process();
+                logger.info("Fin de traitement de l'événement de type : " + event.getEventType().toString() +" - Événement traité avec succès.");
             } catch (Exception exception) {
                 throw new CannotProcessJobException(exception);
             }
         }
         else {
-            logger.info("Aucun job processor trouvé pour l'événement de type : " + event.getEventType().toString() + " - Message ignoré." );
+            logger.info("Aucun job processor trouvé pour l'événement de type : " + event.getEventType().toString() + " - Message ignoré.");
         }
     }
 
@@ -54,4 +73,5 @@ public class MessageListener {
             throw new CannotCreateEventFromJSONMessageException(message, exception);
         }
     }
+
 }

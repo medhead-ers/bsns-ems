@@ -7,6 +7,7 @@ import com.medhead.ers.bsns_ems.application.messaging.service.definition.Message
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import com.medhead.ers.bsns_ems.domain.exception.EmergencyNotFoundException;
 import com.medhead.ers.bsns_ems.domain.service.definition.EmergencyService;
+import com.medhead.ers.bsns_ems.domain.valueObject.EmergencyStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,12 @@ public class EmergencyServiceImpl implements EmergencyService {
     @Override
     public Emergency getEmergencyById(UUID uuid) {
         return emergencyRepository.findById(uuid).orElseThrow(()->new EmergencyNotFoundException(uuid));
+    }
+
+    @Override
+    public Emergency setEmergencyAsDispatched(UUID emergencyId) {
+        Emergency emergency = getEmergencyById(emergencyId);
+        emergency.setAsDispatched();
+        return emergencyRepository.save(emergency);
     }
 }
