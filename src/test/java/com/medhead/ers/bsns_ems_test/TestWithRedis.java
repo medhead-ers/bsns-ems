@@ -1,4 +1,4 @@
-package com.medhead.ers.bsns_ems;
+package com.medhead.ers.bsns_ems_test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.containers.GenericContainer;

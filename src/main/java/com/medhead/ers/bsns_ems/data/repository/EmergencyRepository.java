@@ -1,4 +1,4 @@
-package com.medhead.ers.bsns_ems.application.data.repository;
+package com.medhead.ers.bsns_ems.data.repository;
 
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import org.springframework.data.jpa.repository.JpaRepository;

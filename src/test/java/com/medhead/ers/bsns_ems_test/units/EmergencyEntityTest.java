@@ -1,11 +1,11 @@
-package com.medhead.ers.bsns_ems.units;
+package com.medhead.ers.bsns_ems_test.units;
 
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import com.medhead.ers.bsns_ems.domain.valueObject.EmergencyStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class EmergencyEntityTest {
+class EmergencyEntityTest {
     @Test
     void test_StatusAsDispatchedAfterSetAsDispatchedEmergency(){
         // Given
