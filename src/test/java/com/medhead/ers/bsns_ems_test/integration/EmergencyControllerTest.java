@@ -1,7 +1,8 @@
-package com.medhead.ers.bsns_ems.integration;
+package com.medhead.ers.bsns_ems_test.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.medhead.ers.bsns_ems.application.data.repository.EmergencyRepository;
+import com.medhead.ers.bsns_ems.BsnsEmsApplication;
+import com.medhead.ers.bsns_ems.data.repository.EmergencyRepository;
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import com.medhead.ers.bsns_ems.domain.valueObject.GPSCoordinates;
 import com.medhead.ers.bsns_ems.domain.valueObject.MedicalSpeciality;
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(classes = BsnsEmsApplication.class)
 @AutoConfigureMockMvc
 @DirtiesContext
 class EmergencyControllerTest {

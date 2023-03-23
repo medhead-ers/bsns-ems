@@ -1,11 +1,13 @@
-package com.medhead.ers.bsns_ems.integration;
+package com.medhead.ers.bsns_ems_test.integration;
 
+import com.medhead.ers.bsns_ems.BsnsEmsApplication;
 import com.medhead.ers.bsns_ems.application.messaging.redis.config.MessageListener;
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import com.medhead.ers.bsns_ems.domain.service.definition.EmergencyService;
 import com.medhead.ers.bsns_ems.domain.valueObject.EmergencyStatus;
 import com.medhead.ers.bsns_ems.domain.valueObject.GPSCoordinates;
 import com.medhead.ers.bsns_ems.domain.valueObject.MedicalSpeciality;
+import com.medhead.ers.bsns_ems_test.utils.FileReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,12 +20,10 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.medhead.ers.bsns_ems.utils.FileReader.readFile;
-
-@SpringBootTest
+@SpringBootTest(classes = BsnsEmsApplication.class)
 @DirtiesContext
 @ExtendWith(OutputCaptureExtension.class)
-public class EmergencyDispatchedJobProcessorTest {
+class EmergencyDispatchedJobProcessorTest {
 
     private final static String MOCK_MESSAGE_RESOURCES_PATH = "src/test/resources/mock/message/";
 
@@ -66,7 +66,7 @@ public class EmergencyDispatchedJobProcessorTest {
     }
 
     private String buildEmergencyDispatchedMessage(UUID uuid) throws IOException {
-        return readFile(MOCK_MESSAGE_RESOURCES_PATH + "emergency_dispatched.message")
+        return FileReader.readFile(MOCK_MESSAGE_RESOURCES_PATH + "emergency_dispatched.message")
                 .replace("#EMERGENCY_UUID#", uuid.toString());
     }
 }

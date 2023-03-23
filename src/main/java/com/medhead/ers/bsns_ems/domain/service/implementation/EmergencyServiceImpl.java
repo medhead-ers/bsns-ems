@@ -1,13 +1,12 @@
 package com.medhead.ers.bsns_ems.domain.service.implementation;
 
-import com.medhead.ers.bsns_ems.application.data.repository.EmergencyRepository;
+import com.medhead.ers.bsns_ems.data.repository.EmergencyRepository;
 import com.medhead.ers.bsns_ems.application.messaging.exception.MessagePublicationFailException;
 import com.medhead.ers.bsns_ems.application.messaging.message.factory.MessageFactory;
 import com.medhead.ers.bsns_ems.application.messaging.service.definition.MessagePublisher;
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import com.medhead.ers.bsns_ems.domain.exception.EmergencyNotFoundException;
 import com.medhead.ers.bsns_ems.domain.service.definition.EmergencyService;
-import com.medhead.ers.bsns_ems.domain.valueObject.EmergencyStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,7 @@
-package com.medhead.ers.bsns_ems.units;
+package com.medhead.ers.bsns_ems_test.units;
 
-import com.medhead.ers.bsns_ems.application.data.repository.EmergencyRepository;
+import com.medhead.ers.bsns_ems.BsnsEmsApplication;
+import com.medhead.ers.bsns_ems.data.repository.EmergencyRepository;
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import com.medhead.ers.bsns_ems.domain.service.implementation.EmergencyServiceImpl;
 import com.medhead.ers.bsns_ems.domain.valueObject.EmergencyStatus;
@@ -14,9 +15,9 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.UUID;
 
-@SpringBootTest
 @DirtiesContext
-public class EmergencyServiceTest {
+@SpringBootTest(classes = BsnsEmsApplication.class)
+class EmergencyServiceTest {
     @Autowired
     EmergencyServiceImpl emergencyService;
     @Autowired

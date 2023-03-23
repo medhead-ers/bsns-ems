@@ -1,6 +1,6 @@
-package com.medhead.ers.bsns_ems.application.data.sample;
+package com.medhead.ers.bsns_ems.utils.sample;
 
-import com.medhead.ers.bsns_ems.application.data.repository.EmergencyRepository;
+import com.medhead.ers.bsns_ems.data.repository.EmergencyRepository;
 import com.medhead.ers.bsns_ems.domain.entity.Emergency;
 import com.medhead.ers.bsns_ems.domain.valueObject.GPSCoordinates;
 import com.medhead.ers.bsns_ems.domain.valueObject.MedicalSpeciality;
