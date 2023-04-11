@@ -43,7 +43,8 @@ class EmergencyControllerTest {
         // Then
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.description", is(emergency.getDescription())))
-                .andExpect(jsonPath("$.patientId", is(emergency.getPatientId())))
+                .andExpect(jsonPath("$.patientId", is(emergency.getPatientId().toString())))
+                .andExpect(jsonPath("$.hospitalId", is(emergency.getHospitalId().toString())))
                 .andExpect(jsonPath("$.medicalSpeciality", is(String.valueOf(emergency.getMedicalSpeciality()))))
                 .andExpect(jsonPath("$.gpsCoordinates.longitude").value(is(emergency.getGpsCoordinates().getLongitude()), Double.class))
                 .andExpect(jsonPath("$.gpsCoordinates.latitude").value(is(emergency.getGpsCoordinates().getLatitude()), Double.class));
@@ -58,7 +59,8 @@ class EmergencyControllerTest {
                 // Then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description", is(emergency.getDescription())))
-                .andExpect(jsonPath("$.patientId", is(emergency.getPatientId())))
+                .andExpect(jsonPath("$.patientId", is(emergency.getPatientId().toString())))
+                .andExpect(jsonPath("$.hospitalId", is(emergency.getHospitalId().toString())))
                 .andExpect(jsonPath("$.medicalSpeciality", is(String.valueOf(emergency.getMedicalSpeciality()))))
                 .andExpect(jsonPath("$.gpsCoordinates.longitude").value(is(emergency.getGpsCoordinates().getLongitude()), Double.class))
                 .andExpect(jsonPath("$.gpsCoordinates.latitude").value(is(emergency.getGpsCoordinates().getLatitude()), Double.class))
@@ -92,7 +94,8 @@ class EmergencyControllerTest {
                         .latitude(50.51746719004866)
                         .longitude(-0.05958983237771111).build())
                 .medicalSpeciality(MedicalSpeciality.CARDIOLOGY)
-                .patientId(UUID.randomUUID().toString())
+                .patientId(UUID.randomUUID())
+                .hospitalId(UUID.randomUUID())
                 .build();
     }
 }

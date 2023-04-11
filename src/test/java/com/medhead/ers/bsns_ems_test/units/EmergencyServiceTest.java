@@ -29,11 +29,13 @@ class EmergencyServiceTest {
         Emergency emergency = buildTestEmergency();
         emergency.setStatus(EmergencyStatus.PENDING);
         emergency = emergencyRepository.save(emergency);
+        UUID hospitalId = UUID.randomUUID();
         // When
-        emergencyService.setEmergencyAsDispatched(emergency.getId());
+        emergencyService.setEmergencyAsDispatched(emergency.getId(), hospitalId);
         // Then
         Emergency emergencyFromDb = emergencyService.getEmergencyById(emergency.getId());
         Assertions.assertEquals(EmergencyStatus.DISPATCHED, emergencyFromDb.getStatus());
+        Assertions.assertEquals(hospitalId, emergencyFromDb.getHospitalId());
     }
 
     private Emergency buildTestEmergency(){
@@ -43,7 +45,7 @@ class EmergencyServiceTest {
                         .latitude(50.51746719004866)
                         .longitude(-0.05958983237771111).build())
                 .medicalSpeciality(MedicalSpeciality.IMMUNOLOGY)
-                .patientId(UUID.randomUUID().toString())
+                .patientId(UUID.randomUUID())
                 .build();
     }
 }

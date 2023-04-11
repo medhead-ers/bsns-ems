@@ -9,5 +9,5 @@ public interface EmergencyService {
     Emergency saveEmergency(Emergency emergency);
     List<Emergency> getAllEmergencies();
     Emergency getEmergencyById(UUID uuid);
-    Emergency setEmergencyAsDispatched(UUID emergencyId);
+    Emergency setEmergencyAsDispatched(UUID emergencyId, UUID hospitalId);
 }

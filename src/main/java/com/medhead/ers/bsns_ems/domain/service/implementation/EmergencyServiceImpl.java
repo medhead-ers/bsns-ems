@@ -42,9 +42,9 @@ public class EmergencyServiceImpl implements EmergencyService {
     }
 
     @Override
-    public Emergency setEmergencyAsDispatched(UUID emergencyId) {
+    public Emergency setEmergencyAsDispatched(UUID emergencyId, UUID hospitalId) {
         Emergency emergency = getEmergencyById(emergencyId);
-        emergency.setAsDispatched();
+        emergency.setAsDispatched(hospitalId);
         return emergencyRepository.save(emergency);
     }
 }
