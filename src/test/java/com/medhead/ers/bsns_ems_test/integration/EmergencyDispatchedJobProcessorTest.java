@@ -61,7 +61,7 @@ class EmergencyDispatchedJobProcessorTest {
                         .latitude(50.51746719004866)
                         .longitude(-0.05958983237771111).build())
                 .medicalSpeciality(MedicalSpeciality.IMMUNOLOGY)
-                .patientId(UUID.randomUUID().toString())
+                .patientId(UUID.randomUUID())
                 .build();
     }
 

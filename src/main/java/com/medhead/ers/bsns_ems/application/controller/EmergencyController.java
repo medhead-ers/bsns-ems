@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+// Should be disabled in production
+@CrossOrigin(origins = "http://localhost:3000")
 public class EmergencyController {
     @Autowired
     EmergencyService emergencyService;

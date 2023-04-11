@@ -14,7 +14,8 @@ public class EmergencyDispatchedJob extends Job{
     @Override
     public void process() throws Exception {
         emergencyService.setEmergencyAsDispatched(
-                UUID.fromString(this.getEvent().getMetadata().get("emergencyId").toString())
+                UUID.fromString(this.getEvent().getMetadata().get("emergencyId").toString()),
+                UUID.fromString(this.getEvent().getMetadata().get("hospitalId").toString())
         );
     }
 }
