@@ -45,6 +45,12 @@ public class EmergencyServiceImpl implements EmergencyService {
     public Emergency setEmergencyAsDispatched(UUID emergencyId, UUID hospitalId) {
         Emergency emergency = getEmergencyById(emergencyId);
         emergency.setAsDispatched(hospitalId);
-        return emergencyRepository.save(emergency);
+        Emergency emergencyUpdated = emergencyRepository.save(emergency);
+        try {
+            messagePublisher.publish(MessageFactory.createEmergencyUpdatedMessage(emergencyUpdated));
+            return emergencyUpdated;
+        }
+        // Pour le POC, aucune gestion d'erreur sur la publication de message ne sera implémentée.
+        catch (MessagePublicationFailException e){return emergencyUpdated;}
     }
 }
